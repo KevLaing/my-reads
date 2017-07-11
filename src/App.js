@@ -39,7 +39,7 @@ class BooksApp extends React.Component {
     console.log(book +", "+shelf)
     BooksAPI.update(book,shelf)
     .then(() => {
-      /** TODO: Fix this section so that it incrementally updates state instead of rebuilding the entire state tree - Need help with this**//
+      /** TODO: Fix this section so that it incrementally updates state instead of rebuilding the entire state tree - Need help with this**/
       if(query){
         this.searchBooks(query); //This doesn't seem to run for some reason. Can you explain?
       }else{
