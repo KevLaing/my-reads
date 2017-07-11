@@ -1,6 +1,6 @@
 This is the My Reads project for evaluation as part of the react nano degree from Udacity.
 
-Clone repe
+Clone repo
 Run npm install
 npm start
 

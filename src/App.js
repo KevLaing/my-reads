@@ -39,18 +39,20 @@ class BooksApp extends React.Component {
     });
     this.setState({shelf:shelf});
   }
-  updateBookShelf = (book,shelf) =>{
+  updateBookShelf = (book,shelf, query) =>{
     console.log(book +", "+shelf)
     BooksAPI.update(book,shelf)
-    .then((book) => {
-      this.setState((state) =>({
-        books: state.books.concat([BooksAPI.get(book.id)])
-      }))
+    .then(() => {
+      if(query){
+        this.searchBooks(query);
+      }else{
+        this.getAllBooks()
+      }
     });
 
   }
-  searchBooks =(query) =>{
-    BooksAPI.search(query,10).then((books) => {
+  searchBooks = (query) =>{
+    BooksAPI.search(query,25).then((books) => {
       if(books){
        this.setState({foundbooks:books})
       }

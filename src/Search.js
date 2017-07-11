@@ -4,12 +4,10 @@ import ListBooks from './ListBooks';
 class Search extends Component{
   state = {
     query:'',
-
   }
   updateQuery = (query) =>{
     this.setState({
       query: query,
-
     })
   }
   handleKeyPress = (event) =>{
@@ -20,14 +18,14 @@ class Search extends Component{
   clearQuery = () => {
     this.setState({ query: '' })
   }
-  handleShelfChange = (book,newShelf) => {
-    this.props.updateBookShelf(book,newShelf);
+  handleShelfChange = (book, newShelf) => {
+    console.log(this.state.query)
+    this.props.updateBookShelf(book, newShelf, this.state.query);
+    //this.props.searchBooks(this.state.query);
   }
   render(){
     const {query} = this.state
-
     return(
-
       <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to="/" onClick={this.clearQuery}>Close</Link>
@@ -43,16 +41,16 @@ class Search extends Component{
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {/** TODO: ListBooks component **/}
-            {this.props.books.length >0 &&
-              <ListBooks books={this.props.books} shelf={[]} updateBookShelf={this.handleShelfChange} />
-            }
 
+            {this.props.books.length > 0 ?
+              <ListBooks books={this.props.books} shelf={[]} updateBookShelf={this.handleShelfChange} query={query} />
+              :
+              <div>No results for that term</div>
+            }
           </ol>
         </div>
       </div>
-
-      )
+    )
   }
 }
 export default Search;
