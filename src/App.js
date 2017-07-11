@@ -7,12 +7,7 @@ import Search from './Search';
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
+
     books: [],
     shelf:[],
     foundbooks:[]
@@ -31,6 +26,7 @@ class BooksApp extends React.Component {
     )
   }
   generateShelf = (books)=>{
+    /*This iterates through the books array object and finds a unique set of shelves, then stores that set in the state */
     var shelf = [];
     books.forEach(function(book){
       if(shelf.indexOf(book.shelf) < 0){
@@ -43,8 +39,9 @@ class BooksApp extends React.Component {
     console.log(book +", "+shelf)
     BooksAPI.update(book,shelf)
     .then(() => {
+      /** TODO: Fix this section so that it incrementally updates state instead of rebuilding the entire state tree - Need help with this**//
       if(query){
-        this.searchBooks(query);
+        this.searchBooks(query); //This doesn't seem to run for some reason. Can you explain?
       }else{
         this.getAllBooks()
       }
@@ -54,6 +51,7 @@ class BooksApp extends React.Component {
   searchBooks = (query) =>{
     BooksAPI.search(query,25).then((books) => {
       if(books){
+        /*Since books through search are different than my books a seperate state property is required*/
        this.setState({foundbooks:books})
       }
     })
